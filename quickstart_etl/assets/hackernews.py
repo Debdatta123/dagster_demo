@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 from dagster import AssetExecutionContext, MaterializeResult, MetadataValue, asset
-from dagster_dbt import DbtCliResource, dbt_assets, get_asset_key_for_model
+#from dagster_dbt import DbtCliResource, dbt_assets, get_asset_key_for_model
 
 
 
@@ -98,7 +98,7 @@ def most_frequent_words(context: AssetExecutionContext) -> MaterializeResult:
     return MaterializeResult(metadata={"plot": MetadataValue.md(md_content)})
 
 
-@dbt_assets(deps=[topstories], group_name="hackernews", manifest=Path("manifest.json"))
-def dbt_project_assets(context: AssetExecutionContext, dbt: DbtCliResource):
-    yield from dbt.cli(["build"], context=context).stream()
+# @dbt_assets(deps=[topstories], group_name="hackernews", manifest=Path("manifest.json"))
+# def dbt_project_assets(context: AssetExecutionContext, dbt: DbtCliResource):
+#     yield from dbt.cli(["build"], context=context).stream()
 
