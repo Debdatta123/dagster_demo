@@ -11,7 +11,7 @@ from dagster import AssetExecutionContext, MaterializeResult, MetadataValue, ass
 
 
 
-@asset(group_name="hackernews", compute_kind="dbt")
+@asset(group_name="hackernews", compute_kind="aws")
 def topstory_ids() -> None:
     """Get up to 100 top stories from the HackerNews topstories endpoint.
 
@@ -25,7 +25,7 @@ def topstory_ids() -> None:
         json.dump(top_new_story_ids, f)
 
 
-@asset(deps=[topstory_ids], group_name="hackernews", compute_kind="HackerNews API")
+@asset(deps=[topstory_ids], group_name="hackernews", compute_kind="dbt")
 def topstories(context: AssetExecutionContext) -> MaterializeResult:
     """Get items based on story ids from the HackerNews items endpoint. It may take 30 seconds to fetch all 100 items.
 
@@ -54,7 +54,7 @@ def topstories(context: AssetExecutionContext) -> MaterializeResult:
     )
 
 
-@asset(deps=[topstories], group_name="hackernews", compute_kind="Plot")
+@asset(deps=[topstories], group_name="hackernews", compute_kind="fivetran")
 def most_frequent_words(context: AssetExecutionContext) -> MaterializeResult:
     """Get the top 25 most frequent words in the titles of the top 100 HackerNews stories."""
     stopwords = ["a", "the", "an", "of", "to", "in", "for", "and", "with", "on", "is"]
