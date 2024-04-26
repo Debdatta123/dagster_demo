@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 from dagster import AssetExecutionContext, MaterializeResult, MetadataValue, asset
-from dagster_dbt import DbtCliResource, dbt_assets, get_asset_key_for_model
+# from dagster_dbt import DbtCliResource, dbt_assets, get_asset_key_for_model
 
 
 
