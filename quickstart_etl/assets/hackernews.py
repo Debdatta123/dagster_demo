@@ -54,7 +54,7 @@ def topstories(context: AssetExecutionContext) -> MaterializeResult:
     )
 
 
-@asset(deps=[topstories], group_name="hackernews", compute_kind="glue")
+@asset(deps=[topstories,topstory_ids], group_name="hackernews", compute_kind="aws")
 def most_frequent_words(context: AssetExecutionContext) -> MaterializeResult:
     """Get the top 25 most frequent words in the titles of the top 100 HackerNews stories."""
     stopwords = ["a", "the", "an", "of", "to", "in", "for", "and", "with", "on", "is"]
